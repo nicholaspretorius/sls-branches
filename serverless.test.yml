@@ -1,0 +1,4 @@
+- name: /ping returns response with message
+  endpoint: { function: ping }
+  response:
+    body: { "message": "Hello world!" }
