@@ -2,3 +2,4 @@
   endpoint: { function: ping }
   response:
     body: { "message": "Hello world!" }
+    status: 200
