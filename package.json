@@ -5,7 +5,8 @@
   "main": "handler.js",
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "NODE_ENV=test ./node_modules/.bin/jest --ci --verbose"
+    "test": "NODE_ENV=test ./node_modules/.bin/jest --ci --verbose",
+    "test:cov": "NODE_ENV=test ./node_modules/.bin/jest --coverage --coverageDirectory=output/coverage/jest"
   },
   "dependencies": {
     "source-map-support": "^0.5.10"
@@ -30,6 +31,7 @@
     "jest": "^25.4.0",
     "serverless-offline": "^6.1.4",
     "serverless-webpack": "^5.2.0",
+    "supertest": "^4.0.2",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "typescript-eslint": "0.0.1-alpha.0",
