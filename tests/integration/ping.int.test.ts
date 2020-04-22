@@ -10,7 +10,6 @@ describe("integration: GET /ping", () => {
 
   it("should return with a message", async () => {
     const res = await server.get("/ping");
-    expect(res.body).toBe(true);
     expect(res.body.message).toStrictEqual("Hello world!");
   });
 });
