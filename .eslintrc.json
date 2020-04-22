@@ -12,6 +12,7 @@
   "globals": {},
   "rules": {
     "import/no-unresolved": "off",
+    "import/extensions": "off",
     "import/prefer-default-export": "off",
     "max-len": [
       "error",
@@ -30,7 +31,8 @@
       {
         "avoidEscape": true
       }
-    ]
+    ],
+    "jest/prefer-expect-assertions": "off"
   },
   "parser": "@typescript-eslint/parser",
   "env": {},
