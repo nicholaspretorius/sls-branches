@@ -39,3 +39,13 @@ Linting is performed by ES Lint and can be run via: `npm run lint`
 
 You can deploy the app to the "dev" stage via: `sls deploy` or `sls deploy -v` (which givers you verbose output)
 
+## Housekeeping
+
+When figuring out the testing workflow between `sls offline start` and running tests, it could be that you end up with a *still-running* `sls offline` task you need to kill. In order to do so, run the following to find the PID (Process ID) for the task running on port 3000 and then kill it: 
+
+* `lsof -i :3000`
+* `kill -9 15188`
+
+TODO: 
+
+1. Setup CI/CD for API
