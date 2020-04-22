@@ -8,11 +8,13 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
       - node_modules
 
   install:
+    - cd -
     - npm install -g serverless
     - travis_retry npm install
     - cd -
 
   script:
+    - npm install
     - npm run lint
     - sls test
     - npm run test:unit
