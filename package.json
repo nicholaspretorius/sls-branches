@@ -7,9 +7,9 @@
     "offline": "sls offline start &",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "npm run test:unit & npm run test:integration",
-    "test:system": "npm-run-all -p -r offline test:int",
+    "test:system": "npm-run-all test:unit -p -r offline test:int",
     "test:unit": "NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/unit --ci --verbose",
-    "test:int": "npm run offline && sleep 15 && NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/integration --ci --verbose",
+    "test:int": "npm run offline && sleep 20 && NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/integration --ci --verbose",
     "test:cov": "NODE_ENV=test ./node_modules/.bin/jest --coverage --coverageDirectory=output/coverage/jest"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "@types/node": "^10.12.18",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
+    "aws-lambda-mock-context": "^3.2.1",
     "babel-jest": "^25.4.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
