@@ -1,14 +1,14 @@
 service:
   name: branch-api
-# app: branch
-# org: nicholaspretorius
+  app: branch
+  org: nicholaspretorius
 
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
-  # profiles:
-  #   dev: serverless-user
+  profiles:
+    dev: serverless-user
   # prod: serverless-prod
 
 # Add the serverless-webpack plugin
@@ -21,7 +21,8 @@ provider:
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-west-1'}
-  # profile: ${self:custom.profiles.${self:provider.stage}}
+  profile: ${self:custom.profiles.${self:provider.stage}}
+  cfnRole: arn:aws:iam::839211811792:role/branch-api-dev-eu-west-1-lambdaRole
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
