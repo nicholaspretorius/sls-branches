@@ -8,16 +8,13 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
       - node_modules
 
   install:
-    - cd -
     - npm install -g serverless
-    - travis_retry npm install
-    - cd -
+    - npm install
 
   script:
-    - npm install
     - serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID_DEVELOPMENT} --secret ${AWS_SECRET_ACCESS_KEY_DEVELOPMENT} --profile serverless-user -o
     - npm run lint
-    - sls test
+    # - sls test
     - npm run test:unit
     # - npm run test:integration
     - serverless deploy -s ${STAGE_NAME} --aws-profile serverless-user
