@@ -16,7 +16,7 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
   script:
     - npm install
     - npm run lint
-    - sls test
+    # - sls test # not in use since it requires use of Serverless Dashboard instead of Travis CI
     - npm run test:unit
     # - npm run test:integration
     - serverless deploy -s ${STAGE_NAME}
