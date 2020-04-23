@@ -19,7 +19,7 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
     - sls test
     - npm run test:unit
     # - npm run test:integration
-    - serverless deploy -s ${STAGE_NAME}
+    - serverless deploy -s ${STAGE_NAME} --aws-profile serverless-user
     - cd -
 
 environments:
@@ -30,6 +30,7 @@ environments:
   - &DEVELOPMENT_ENV
     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID_DEVELOPMENT}
     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY_DEVELOPMENT}
+    - SERVERLESS_ACCESS_KEY=${SERVERLESS_ACCESS_KEY}
 
 jobs:
   include:
