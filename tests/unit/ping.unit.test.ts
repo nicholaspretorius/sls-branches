@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import context from "aws-lambda-mock-context";
+import createEvent from "aws-event-mocks";
 
 import { main, getGreeting } from "../../src/ping";
 
@@ -10,7 +11,12 @@ describe("unit: /ping", () => {
   });
 
   it("endpoint should return a response with statusCode 200 and body.message", async () => {
-    const event: APIGatewayProxyEvent = null;
+    const event: APIGatewayProxyEvent = createEvent({
+      template: "aws:apiGateway",
+      merge: {
+        body: {},
+      },
+    });
     const ctx = context();
     const response = { message: "Hello world!" };
     const res = await main(event, ctx, null) as APIGatewayProxyResult;
