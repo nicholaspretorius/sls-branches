@@ -15,6 +15,7 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
 
   script:
     - npm install
+    - serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID_DEVELOPMENT} --secret ${AWS_SECRET_ACCESS_KEY_DEVELOPMENT} --profile serverless-user -o
     - npm run lint
     - sls test
     - npm run test:unit
