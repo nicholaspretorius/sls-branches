@@ -11,7 +11,6 @@ export const main: APIGatewayProxyHandler = async (): Promise<APIGatewayProxyRes
     body: JSON.stringify(
       {
         message: getGreeting(),
-        // input: event,
       },
     ),
   })
