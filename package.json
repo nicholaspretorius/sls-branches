@@ -4,10 +4,9 @@
   "description": "Serverless webpack example using Typescript",
   "main": "handler.js",
   "scripts": {
-    "offline": "sls offline start &",
+    "offline": "sls offline start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "npm run test:unit & npm run test:integration",
-    "test:system": "npm-run-all test:unit -p -r offline test:int",
     "test:unit": "NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/unit --ci --verbose",
     "test:int": "npm run offline && sleep 20 && NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/integration --ci --verbose",
     "test:cov": "NODE_ENV=test ./node_modules/.bin/jest --coverage --coverageDirectory=output/coverage/jest"
@@ -35,14 +34,12 @@
     "eslint-plugin-module-resolver": "^0.16.0",
     "fork-ts-checker-webpack-plugin": "^3.0.1",
     "jest": "^25.4.0",
-    "npm-run-all": "^4.1.5",
     "serverless-offline": "^6.1.4",
     "serverless-webpack": "^5.2.0",
     "supertest": "^4.0.2",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "typescript-eslint": "0.0.1-alpha.0",
-    "wait-on": "^4.0.2",
     "webpack": "^4.29.0",
     "webpack-node-externals": "^1.7.2"
   },
