@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "npm run test:unit & npm run test:integration",
     "test:unit": "NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/unit --ci --verbose",
-    "test:int": "npm run offline && sleep 20 && NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/integration --ci --verbose",
+    "test:int": "NODE_ENV=test ./node_modules/.bin/jest --testPathPattern=tests/integration --ci --verbose",
     "test:cov": "NODE_ENV=test ./node_modules/.bin/jest --coverage --coverageDirectory=output/coverage/jest"
   },
   "dependencies": {
