@@ -18,7 +18,7 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
     # - sls test
     - npm run test:unit
     - npm run offline && wait-on http://localhost:3000 &
-    - npm run test:integration
+    - npm run test:int
     - serverless deploy -s ${STAGE_NAME} --aws-profile serverless-user
     - kill $(jobs -p) || true
 
