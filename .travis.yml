@@ -10,15 +10,17 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
   install:
     - npm install -g serverless
     - npm install
+    - npm install wait-on
 
   script:
     - serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID_DEVELOPMENT} --secret ${AWS_SECRET_ACCESS_KEY_DEVELOPMENT} --profile serverless-user -o
     - npm run lint
     # - sls test
     - npm run test:unit
-    # - npm run test:integration
+    - npm run offline && wait-on http://localhost:3000 &
+    - npm run test:integration
     - serverless deploy -s ${STAGE_NAME} --aws-profile serverless-user
-    - cd -
+    - kill $(jobs -p) || true
 
 environments:
   # - &PRODUCTION_ENV
