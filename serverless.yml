@@ -7,19 +7,24 @@ custom:
   webpack:
     webpackConfig: ./webpack.config.js
     includeModules: true
+
   profiles:
     dev: franchisely
   # prod: serverless-prod
 
-# Add the serverless-webpack plugin
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8002
+      inMemory: true
+      migrate: true
+
 plugins:
   - serverless-webpack
   - serverless-offline
   - serverless-iam-roles-per-function
-
-# package dependencies per function
-# package:
-#   individually: true
+  - serverless-dynamodb-local
 
 provider:
   name: aws
