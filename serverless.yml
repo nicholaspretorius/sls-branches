@@ -15,23 +15,46 @@ custom:
 plugins:
   - serverless-webpack
   - serverless-offline
+  - serverless-iam-roles-per-function
+
+# package dependencies per function
+# package:
+#   individually: true
 
 provider:
   name: aws
   runtime: nodejs12.x
+
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-west-1'}
   profile: ${self:custom.profiles.${self:provider.stage}}
   # cfnRole: arn:aws:iam::839211811792:role/branch-api-dev-eu-west-1-lambdaRole
+
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    ENTITIES_TABLE: ncp-branches-entities-${self:provider.stage}
 
 functions:
   ping:
-    handler: src/ping.main
+    handler: src/lambda/http/ping.main
     events:
       - http:
           method: get
           path: ping
+  entityCreate:
+    handler: src/lambda/http/entities/create.main
+    events:
+      - http:
+          method: post
+          path: entities
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ENTITIES_TABLE}
+
+resources:
+  - ${file(resources/entities-dynamodb-table.yml)}
