@@ -1,4 +1,4 @@
 export interface Contact {
-    contactType: string,
-    contactHandle: string,
-};
+  contactType: string;
+  contactHandle: string;
+}
