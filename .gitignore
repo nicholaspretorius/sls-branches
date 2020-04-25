@@ -13,3 +13,4 @@ output/
 instructions.md
 
 *.env
+.dynamodb/
