@@ -14,7 +14,7 @@ custom:
 
   dynamodb:
     stages:
-      - dev
+      - ${self:provider.stage}
     start:
       port: 8002
       inMemory: true
