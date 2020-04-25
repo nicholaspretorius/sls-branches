@@ -3,3 +3,17 @@
   response:
     body: { "message": "Hello world!" }
     status: 200
+
+- name: /entities creates an entity
+  endpoint: { function: entityCreate }
+  request:
+    body:
+      name: bmw
+      userId: abc123
+      country:
+        code: de
+        name: Germany
+      contacts:
+        contact:
+          contactType: email
+          email: test@test.com
