@@ -19,6 +19,13 @@ You can see the available endpoints at: [http://localhost:3000](http://localhost
 
 You can specify an alternate port by running: `sls offline start --httpPort 4000`
 
+### Run DynamoDB Locally
+
+* `serverless plugin install --name serverless-dynamodb-local`
+* `sls dynamodb install`
+* `sls dynamodb start --migrate --stage dev`
+* `sls dynamodb migrate --stage dev`
+
 ## Tests
 
 1. Tests are run via Jest, you can run the tests, both unit and integration through: `npm test`

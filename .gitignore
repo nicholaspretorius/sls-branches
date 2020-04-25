@@ -11,3 +11,6 @@ vscode/
 output/
 .DS_Store
 instructions.md
+
+*.env
+.dynamodb/

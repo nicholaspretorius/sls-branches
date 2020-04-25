@@ -1,5 +1,7 @@
 import request from "supertest";
 
+const URL = process.env.URL;
+
 describe("integration: GET /ping", () => {
   const server = request("http://localhost:3000/dev");
 

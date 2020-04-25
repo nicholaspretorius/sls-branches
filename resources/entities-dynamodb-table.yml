@@ -1,0 +1,19 @@
+Resources:
+  # Entities DynamoDB Table
+  EntitiesDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    # https://seed.run/blog/how-to-prevent-accidentally-deleting-serverless-resources
+    # DeletionPolicy: Retain
+    Properties:
+      TableName: ${self:provider.environment.ENTITIES_TABLE}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: entityId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: entityId
+          KeyType: RANGE
