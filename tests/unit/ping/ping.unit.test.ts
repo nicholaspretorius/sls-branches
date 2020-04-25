@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import context from "aws-lambda-mock-context";
 import createEvent from "aws-event-mocks";
 
-import { main, getGreeting } from "../../src/ping";
+import { main, getGreeting } from "../../../src/lambda/http/ping";
 
 describe("unit: /ping", () => {
   it("getGreeting() should return a message of 'Hello world!'", () => {
