@@ -6,7 +6,7 @@ import { EntityCreateRequest } from "../../../models/entities/Entity";
 import { createEntity } from "../../../businessLogic/entities";
 
 export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const newEntity: EntityCreateRequest = JSON.parse(event.body);
+  const newEntity: EntityCreateRequest = JSON.parse(JSON.stringify(event.body));
   const userId = "abc123";
 
   try {
