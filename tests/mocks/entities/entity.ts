@@ -8,7 +8,7 @@ export const entity = {
   contacts: [
     {
       contactType: "email",
-      email: "test@test.com",
+      contactHandle: "test@test.com",
     },
   ],
 };
