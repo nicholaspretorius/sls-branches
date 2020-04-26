@@ -8,11 +8,11 @@ export interface Entity {
     updatedAt: string;
     name: string;
     country: Country;
-    contacts: [Contact];
+    contacts: Contact[];
 }
 
 export interface EntityCreateRequest {
     name: string;
     country: Country;
-    contacts: [Contact];
+    contacts: Contact[];
 }
