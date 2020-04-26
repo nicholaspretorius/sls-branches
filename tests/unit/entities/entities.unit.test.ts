@@ -2,21 +2,21 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import context from "aws-lambda-mock-context";
 import createEvent from "aws-event-mocks";
 
-import { createEntity } from "./../../../src/businessLogic/entities";
+import { createEntity } from "../../../src/businessLogic/entities";
 import { main } from "../../../src/lambda/http/entities/create";
 import { entity } from "../../mocks/entities/entity";
 
-jest.mock("./../../../src/businessLogic/entities", () => {
+jest.mock("../../../src/businessLogic/entities", () => {
   const uuid = require("uuid");
-  const entity = require("../../mocks/entities/entity");
+  const mockEntity = require("../../mocks/entities/entity");
   const entityId = uuid.v4();
   const createdEntity = {
     entityId,
-    ...entity
+    ...mockEntity,
   };
 
   return {
-    createEntity: jest.fn(() => createdEntity)
+    createEntity: jest.fn(() => createdEntity),
   };
 });
 

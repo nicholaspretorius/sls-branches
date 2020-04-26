@@ -17,7 +17,7 @@ export class EntityAccess {
     const res = await this.docClient.put({
       TableName: this.entitiesTable,
       Item: entity,
-      ReturnValues: "ALL_NEW"
+      ReturnValues: "ALL_NEW",
     }).promise();
 
     return res.Attributes as Entity;
