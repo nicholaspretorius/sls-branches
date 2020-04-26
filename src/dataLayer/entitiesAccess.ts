@@ -14,11 +14,12 @@ export class EntityAccess {
   ) { }
 
   async createEntity(entity: Entity): Promise<Entity> {
-    await this.docClient.put({
+    const res = await this.docClient.put({
       TableName: this.entitiesTable,
       Item: entity,
+      ReturnValues: "ALL_NEW"
     }).promise();
 
-    return entity;
+    return res.Attributes as Entity;
   }
 }
