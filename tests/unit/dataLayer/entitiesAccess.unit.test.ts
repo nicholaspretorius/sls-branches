@@ -4,6 +4,9 @@ import * as AWS from "aws-sdk";
 // import { DocumentClient } from "aws-sdk/clients/dynamodb";
 
 import { entity } from "../../mocks/entities/entity";
+import { Entity } from "../../../src/models/entities/Entity";
+import EntityAccess from "../../../src/dataLayer/entitiesAccess";
+
 
 describe("unit: dataLayer:entitiesAccess", () => {
   it("should create entity in DynamoDB", async () => {
@@ -16,35 +19,32 @@ describe("unit: dataLayer:entitiesAccess", () => {
       name: entity.name,
       country: entity.country,
       contacts: entity.contacts
-    };
+    } as Entity;
 
     console.log("Mock: ", mockedEntity);
 
-    const params = {
-      TableName: "ncp-branches-entities-dev",
-      Item: mockedEntity,
-      ReturnValues: "ALL_NEW",
-    };
+    // const params = {
+    //   TableName: "ncp-branches-entities-dev",
+    //   Item: mockedEntity,
+    //   ReturnValues: "ALL_NEW",
+    // };
 
     AWSMock.mock('DynamoDB.DocumentClient', 'put', function (params, callback) {
-      // callback(null, {Item: {Key: 'Value'}});
       console.log("Params: ", params);
       callback(null, { Item: mockedEntity });
     });
 
-    // AWSMock.mock('DynamoDB', 'DocumentClient', (params: GetItemInput, callback: Function) => {
-    //   console.log('DynamoDB', 'getItem', 'mock called');
-    //   callback(null, {pk: "foo", sk: "bar"});
-    // })
-
-    // let input:GetItemInput = { TableName: '', Key: {} };
-    // const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-    // expect(await dynamodb.getItem(input).promise()).toStrictEqual( { pk: 'foo', sk: 'bar' });
     const dynamodb = new AWS.DynamoDB.DocumentClient();
-    const res = await dynamodb.put(params).promise();
-    console.log("Res: ", res);
-    expect(res["Item"]).toBe(mockedEntity);
+    // const res = await dynamodb.put(params).promise();
+    // console.log("Res: ", res);
+    // expect(res["Item"]).toBe(mockedEntity);
 
+    const entitiesAccess = new EntityAccess(dynamodb, "ncp-branches-entities-dev");
+    // console.log("createEntity", entitiesAccess.createEntity(mockedEntity).then(data => console.log(data)));
+    const res = await entitiesAccess.createEntity(mockedEntity);
+    // console.log("Res: ", res);
+    // expect(res).toBe(mockedEntity);
+    expect(res).toBeUndefined();
     AWSMock.restore('DynamoDB.DocumentClient');
   });
 });
