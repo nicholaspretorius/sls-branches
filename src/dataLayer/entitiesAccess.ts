@@ -7,7 +7,7 @@ function createDynamoDBClient(): DocumentClient {
   return new AWS.DynamoDB.DocumentClient();
 }
 
-export class EntityAccess {
+export default class EntityAccess {
   constructor(
     private readonly docClient: DocumentClient = createDynamoDBClient(),
     private readonly entitiesTable = process.env.ENTITIES_TABLE,
