@@ -1,8 +1,6 @@
 import * as uuid from "uuid";
-import { EntityAccess } from "../dataLayer/entitiesAccess";
+import EntityAccess from "../dataLayer/entitiesAccess";
 import { Entity, EntityCreateRequest } from "../models/entities/Entity";
-
-const entitiesAccess = new EntityAccess();
 
 // async function createEntity(entity: EntityCreateRequest, userId: string): Promise<Entity> {
 //   const entityId = uuid.v4();
@@ -21,6 +19,8 @@ const entitiesAccess = new EntityAccess();
 const entityClient = {
   create: async (entity: EntityCreateRequest, userId: string): Promise<Entity> => {
     const entityId = uuid.v4();
+
+    const entitiesAccess = new EntityAccess();
 
     return entitiesAccess.createEntity({
       entityId,
