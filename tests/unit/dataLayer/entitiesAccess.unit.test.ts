@@ -54,4 +54,16 @@ describe("unit: dataLayer:entitiesAccess", () => {
     const res = await entitiesAccess.getEntityById("abc123");
     expect(res).toBe(entity);
   });
+
+  it("should delete entity by id from DynamoDB", async () => {
+    const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
+    const mockRes = {
+      entityId,
+    };
+
+    AWSMock.mock("DynamoDB.DocumentClient", "delete", Promise.resolve(mockRes));
+    const entitiesAccess = new EntityAccess();
+    const res = await entitiesAccess.deleteEntityById(entityId);
+    expect(res).toBeDefined();
+  });
 });

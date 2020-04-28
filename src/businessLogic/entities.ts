@@ -18,7 +18,8 @@ import { Entity, EntityCreateRequest } from "../models/entities/Entity";
 // const entitiesAccess = new EntityAccess();
 
 const entityClient = {
-  create: async (entity: EntityCreateRequest, userId: string): Promise<Entity> => {
+  create: async (entity, userId: string): Promise<Entity> => {
+    const { name, country, contacts } = entity;
     const entityId = uuid.v4();
     const entitiesAccess = new EntityAccess();
 
@@ -27,9 +28,9 @@ const entityClient = {
       userId,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      name: entity.name,
-      country: entity.country,
-      contacts: entity.contacts,
+      name,
+      country,
+      contacts,
     });
   },
   getList: async () => {
@@ -41,6 +42,11 @@ const entityClient = {
     const entitiesAccess = new EntityAccess();
 
     return entitiesAccess.getEntityById(entityId);
+  },
+  delete: async (entityId: string) => {
+    const entitiesAccess = new EntityAccess();
+
+    return entitiesAccess.deleteEntityById(entityId);
   },
 };
 

@@ -30,12 +30,12 @@ describe("unit: POST /entities", () => {
     };
 
     entityClient.create = jest.fn().mockResolvedValue(mockEntity);
-    const createdEntity = await entityClient.create(entity, "abc123");
+    const createdEntity = await entityClient.create(JSON.stringify(entity), "abc123");
 
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
-        body: entity,
+        body: JSON.stringify(entity),
       },
     });
 
@@ -55,7 +55,7 @@ describe("unit: POST /entities", () => {
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
-        body: {},
+        body: JSON.stringify({}),
       },
     });
 
