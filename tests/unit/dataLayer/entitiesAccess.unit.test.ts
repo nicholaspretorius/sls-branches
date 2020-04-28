@@ -43,4 +43,15 @@ describe("unit: dataLayer:entitiesAccess", () => {
     const res = await entitiesAccess.getEntities();
     expect(res).toBe(getEntities);
   });
+
+  it("return entity by id from DynamoDB", async () => {
+    const mockRes = {
+      Item: entity,
+    };
+
+    AWSMock.mock("DynamoDB.DocumentClient", "get", Promise.resolve(mockRes));
+    const entitiesAccess = new EntityAccess();
+    const res = await entitiesAccess.getEntityById("abc123");
+    expect(res).toBe(entity);
+  });
 });
