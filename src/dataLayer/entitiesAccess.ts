@@ -10,7 +10,7 @@ import { Entity } from "../models/entities/Entity";
 export default class EntityAccess {
   constructor(
     private readonly entitiesTable = process.env.ENTITIES_TABLE,
-    private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(), //this.createDynamoDBClient(),
+    private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
   ) { }
 
   async createEntity(entity: Entity): Promise<Entity> {

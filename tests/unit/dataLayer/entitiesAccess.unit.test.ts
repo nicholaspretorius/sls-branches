@@ -21,13 +21,13 @@ const mockedEntity = {
 
 describe("unit: dataLayer:entitiesAccess", () => {
   it("create entity in DynamoDB", async () => {
-    var expectedPr = {
+    const expectedPr = {
       Attributes: mockedEntity,
-      $response: null
+      $response: null,
     };
 
-    AWSMock.mock('DynamoDB.DocumentClient', 'put', Promise.resolve(expectedPr));
-    var entitiesAccess = new EntityAccess();
+    AWSMock.mock("DynamoDB.DocumentClient", "put", Promise.resolve(expectedPr));
+    const entitiesAccess = new EntityAccess();
     const res = await entitiesAccess.createEntity(mockedEntity);
     // console.log("Result: ", res);
     expect(res).toBe(mockedEntity);

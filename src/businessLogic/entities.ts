@@ -31,7 +31,7 @@ const entityClient = {
       country: entity.country,
       contacts: entity.contacts,
     });
-  }
-}
+  },
+};
 
 export default entityClient;

@@ -22,7 +22,6 @@ import { entity } from "../../mocks/entities/entity";
 // });
 
 describe("unit: /entities", () => {
-
   it("endpoint should return a response with statusCode 201 and body", async () => {
     const entityId = uuid.v4();
     const mockEntity = {
