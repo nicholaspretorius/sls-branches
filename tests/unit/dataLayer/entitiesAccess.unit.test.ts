@@ -3,7 +3,7 @@ import * as AWSMock from "aws-sdk-mock";
 // import * as AWS from "aws-sdk";
 // import { PutItemInput, GetItemInput } from "aws-sdk/clients/dynamodb";
 
-import { entity } from "../../mocks/entities/entity";
+import { entity, getEntities } from "../../mocks/entities/entity";
 import { Entity } from "../../../src/models/entities/Entity";
 import EntityAccess from "../../../src/dataLayer/entitiesAccess";
 
@@ -23,7 +23,7 @@ describe("unit: dataLayer:entitiesAccess", () => {
   it("create entity in DynamoDB", async () => {
     const expectedPr = {
       Attributes: mockedEntity,
-      $response: null,
+      // $response: null,
     };
 
     AWSMock.mock("DynamoDB.DocumentClient", "put", Promise.resolve(expectedPr));
@@ -31,5 +31,16 @@ describe("unit: dataLayer:entitiesAccess", () => {
     const res = await entitiesAccess.createEntity(mockedEntity);
     // console.log("Result: ", res);
     expect(res).toBe(mockedEntity);
+  });
+
+  it("return entities from DynamoDB", async () => {
+    const mockRes = {
+      Items: getEntities,
+    };
+
+    AWSMock.mock("DynamoDB.DocumentClient", "query", Promise.resolve(mockRes));
+    const entitiesAccess = new EntityAccess();
+    const res = await entitiesAccess.getEntities();
+    expect(res).toBe(getEntities);
   });
 });

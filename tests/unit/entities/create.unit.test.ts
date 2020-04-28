@@ -21,8 +21,8 @@ import { entity } from "../../mocks/entities/entity";
 //   };
 // });
 
-describe("unit: /entities", () => {
-  it("endpoint should return a response with statusCode 201 and body", async () => {
+describe("unit: POST /entities", () => {
+  it("should return the entity with statusCode 201 and body", async () => {
     const entityId = uuid.v4();
     const mockEntity = {
       entityId,
@@ -49,7 +49,7 @@ describe("unit: /entities", () => {
   });
 
 
-  it("endpoint should return a response with statusCode 400 and body", async () => {
+  it("should return an error with statusCode 400 and body", async () => {
     entityClient.create = jest.fn().mockRejectedValue(new Error("There was an error creating the entity"));
 
     const event: APIGatewayProxyEvent = createEvent({
