@@ -12,17 +12,17 @@ custom:
     dev: franchisely
   # prod: serverless-prod
 
-  dynamodb:
-    stages:
-      - ${self:provider.stage}
-    start:
-      port: 8002
-      inMemory: true
-      migrate: true
+  # dynamodb:
+  #   stages:
+  #     - ${self:provider.stage}
+  #   start:
+  #     port: 8002
+  #     inMemory: true
+  #     migrate: true
 
 plugins:
   - serverless-webpack
-  - serverless-offline
+  # - serverless-offline
   - serverless-iam-roles-per-function
   - serverless-dynamodb-local
 

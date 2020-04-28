@@ -14,13 +14,13 @@ deploy_service_job: &DEPLOY_SERVICE_JOB
 
   script:
     - serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID_DEVELOPMENT} --secret ${AWS_SECRET_ACCESS_KEY_DEVELOPMENT} --profile serverless-user -o
-    - serverless offline start && wait-on http://localhost:3000 &
+    # - serverless offline start && wait-on http://localhost:3000 &
     - npm run lint
     # - sls test
     - npm run test:unit
-    - npm run test:int
+    # - npm run test:int
     - serverless deploy -s ${STAGE_NAME} --aws-profile serverless-user
-    - kill $(jobs -p) || true
+    # - kill $(jobs -p) || true
 
 environments:
   # - &PRODUCTION_ENV

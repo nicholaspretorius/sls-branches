@@ -17,6 +17,7 @@
     "no-useless-constructor": "off",
     "global-require": "off",
     "@typescript-eslint/no-var-requires": "off",
+    "jest/prefer-spy-on": "off",
     "max-len": [
       "error",
       {
