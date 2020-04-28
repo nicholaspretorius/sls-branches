@@ -3,14 +3,14 @@ import { DocumentClient } from "aws-sdk/clients/dynamodb";
 
 import { Entity } from "../models/entities/Entity";
 
-function createDynamoDBClient(): DocumentClient {
-  return new AWS.DynamoDB.DocumentClient();
-}
+// export function createDynamoDBClient(): DocumentClient {
+//   return new AWS.DynamoDB.DocumentClient();
+// }
 
 export default class EntityAccess {
   constructor(
-    private readonly docClient: DocumentClient = createDynamoDBClient(),
     private readonly entitiesTable = process.env.ENTITIES_TABLE,
+    private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(), //this.createDynamoDBClient(),
   ) { }
 
   async createEntity(entity: Entity): Promise<Entity> {
