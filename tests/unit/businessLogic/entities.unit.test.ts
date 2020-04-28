@@ -52,4 +52,16 @@ describe("unit: businessLogic:entities", () => {
     expect(res).toStrictEqual(getEntity);
     expect(mockedEntityAccess).toHaveBeenCalledTimes(3);
   });
+
+  it("should delete an entity by id", async () => {
+    const entityId = "66bfef74-a64a-4681-9328-410752338a0e"; // mock
+
+    mockedEntityAccess.mockImplementation(() => ({
+      deleteEntityById: () => ({ entityId }),
+    }));
+
+    const res = await entityClient.delete(entityId);
+    expect(res).toStrictEqual({ entityId });
+    expect(mockedEntityAccess).toHaveBeenCalledTimes(4);
+  });
 });
