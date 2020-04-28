@@ -40,4 +40,18 @@ export default class EntityAccess {
     // console.log("Res: ", res);
     return res.Items;
   }
+
+  async getEntityById(entityId: string): Promise<Entity> {
+    const params = {
+      TableName: ENTITIES,
+      Key: {
+        entityId,
+        userId: "abc123",
+      },
+    };
+
+    const res = await this.docClient.get(params).promise();
+    // console.log("Res for entityId ", entityId, " : ", res);
+    return res.Item as Entity;
+  }
 }

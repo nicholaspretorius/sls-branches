@@ -20,7 +20,6 @@ import { Entity, EntityCreateRequest } from "../models/entities/Entity";
 const entityClient = {
   create: async (entity: EntityCreateRequest, userId: string): Promise<Entity> => {
     const entityId = uuid.v4();
-
     const entitiesAccess = new EntityAccess();
 
     return entitiesAccess.createEntity({
@@ -37,6 +36,11 @@ const entityClient = {
     const entitiesAccess = new EntityAccess();
 
     return entitiesAccess.getEntities();
+  },
+  get: async (entityId: string) => {
+    const entitiesAccess = new EntityAccess();
+
+    return entitiesAccess.getEntityById(entityId);
   },
 };
 
