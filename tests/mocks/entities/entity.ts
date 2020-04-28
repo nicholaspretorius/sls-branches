@@ -12,3 +12,23 @@ export const entity = {
     },
   ],
 };
+
+export const getEntities = [
+  {
+    contacts: [
+      {
+        contactType: "email",
+        email: "test@test.com",
+      },
+    ],
+    userId: "abc123",
+    updatedAt: "2020-04-25T13:27:07.621Z",
+    entityId: "66bfef74-a64a-4681-9328-410752338a0e",
+    createdAt: "2020-04-25T13:27:07.621Z",
+    country: {
+      countryCode: "de",
+      countryName: "Germany",
+    },
+    name: "BMW",
+  },
+];

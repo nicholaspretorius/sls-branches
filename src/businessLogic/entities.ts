@@ -15,6 +15,7 @@ import { Entity, EntityCreateRequest } from "../models/entities/Entity";
 //     contacts: entity.contacts,
 //   });
 // }
+// const entitiesAccess = new EntityAccess();
 
 const entityClient = {
   create: async (entity: EntityCreateRequest, userId: string): Promise<Entity> => {
@@ -31,6 +32,11 @@ const entityClient = {
       country: entity.country,
       contacts: entity.contacts,
     });
+  },
+  getList: async () => {
+    const entitiesAccess = new EntityAccess();
+
+    return entitiesAccess.getEntities();
   },
 };
 

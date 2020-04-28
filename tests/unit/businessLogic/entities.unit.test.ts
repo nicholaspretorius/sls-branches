@@ -1,7 +1,7 @@
 import * as uuid from "uuid";
 import entityClient from "../../../src/businessLogic/entities";
 import EntityAccess from "../../../src/dataLayer/entitiesAccess";
-import { entity } from "../../mocks/entities/entity";
+import { entity, getEntities } from "../../mocks/entities/entity";
 import { Entity } from "../../../src/models/entities/Entity";
 
 jest.mock("../../../src/dataLayer/entitiesAccess");
@@ -9,7 +9,7 @@ jest.mock("../../../src/dataLayer/entitiesAccess");
 const mockedEntityAccess = EntityAccess as jest.Mock;
 
 describe("unit: businessLogic:entities", () => {
-  it("should return an entity", async () => {
+  it("should create and return an entity", async () => {
     const entityId = uuid.v4();
 
     const mockedEntity = {
@@ -29,5 +29,15 @@ describe("unit: businessLogic:entities", () => {
 
     expect(res).toStrictEqual(mockedEntity);
     expect(mockedEntityAccess).toHaveBeenCalledTimes(1);
+  });
+
+  it("should return existing entities", async () => {
+    mockedEntityAccess.mockImplementation(() => ({
+      getEntities: () => getEntities,
+    }));
+
+    const res = await entityClient.getList();
+    expect(res).toStrictEqual(getEntities);
+    expect(mockedEntityAccess).toHaveBeenCalledTimes(2);
   });
 });
