@@ -100,5 +100,18 @@ functions:
           - dynamodb:DeleteItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ENTITIES_TABLE}
 
+  update:
+    handler: src/lambda/http/entities/update.main
+    events:
+      - http:
+          method: put
+          path: entities/{entityId}
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ENTITIES_TABLE}
+
 resources:
   - ${file(resources/entities-dynamodb-table.yml)}

@@ -1,7 +1,12 @@
 import * as uuid from "uuid";
 import entityClient from "../../../src/businessLogic/entities";
 import EntityAccess from "../../../src/dataLayer/entitiesAccess";
-import { entity, getEntity, getEntities } from "../../mocks/entities/entity";
+import {
+  entity,
+  getEntity,
+  getEntities,
+  updateEntity,
+} from "../../mocks/entities/entity";
 import { Entity } from "../../../src/models/entities/Entity";
 
 jest.mock("../../../src/dataLayer/entitiesAccess");
@@ -63,5 +68,17 @@ describe("unit: businessLogic:entities", () => {
     const res = await entityClient.delete(entityId);
     expect(res).toStrictEqual({ entityId });
     expect(mockedEntityAccess).toHaveBeenCalledTimes(4);
+  });
+
+  it("should update an entity by id", async () => {
+    const entityId = "66bfef74-a64a-4681-9328-410752338a0e"; // mock
+
+    mockedEntityAccess.mockImplementation(() => ({
+      updateEntityById: () => ({ Attributes: { ...updateEntity } }),
+    }));
+
+    const res = await entityClient.update(entityId, updateEntity);
+    expect(res.Attributes).toStrictEqual(updateEntity);
+    expect(mockedEntityAccess).toHaveBeenCalledTimes(5);
   });
 });

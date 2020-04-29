@@ -66,7 +66,30 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.delete(params).promise();
-    console.log("DEL Res: ", res);
+    // console.log("DEL Res: ", res);
     return res;
+  }
+
+  async updateEntityById(entityId: string, data) {
+    // console.log("updateEntityById Params: ", entityId, data.name, data);
+    const params = {
+      TableName: this.entitiesTable,
+      Key: {
+        entityId,
+        userId: "abc123",
+      },
+      UpdateExpression: "SET #entityName = :name",
+      ExpressionAttributeValues: {
+        ":name": data.name,
+      },
+      ExpressionAttributeNames: {
+        "#entityName": "name",
+      },
+      ReturnValues: "ALL_NEW",
+    };
+
+    const res = await this.docClient.update(params).promise();
+    // console.log("entityAcess.updateEntityById res: ", res);
+    return res.Attributes;
   }
 }

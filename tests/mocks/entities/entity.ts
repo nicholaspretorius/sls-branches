@@ -37,7 +37,7 @@ export const getEntity = {
   contacts: [
     {
       contactType: "email",
-      email: "test@test.com",
+      contactHandle: "test@test.com",
     },
   ],
   userId: "abc123",
@@ -49,4 +49,18 @@ export const getEntity = {
     countryName: "Germany",
   },
   name: "BMW",
+};
+
+export const updateEntity = {
+  name: "BMW_ZA",
+  country: {
+    countryCode: "za",
+    countryName: "South Africa",
+  },
+  contacts: [
+    {
+      contactType: "email",
+      contactHandle: "updated@test.com",
+    },
+  ],
 };
