@@ -39,6 +39,7 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     ENTITIES_TABLE: ncp-branches-entities-${self:provider.stage}
+    ENTITIES_UPLOADS_S3_BUCKET: ncp-branches-entities-uploads-bucket-${self:provider.stage}
 
 functions:
   ping:
@@ -115,3 +116,6 @@ functions:
 
 resources:
   - ${file(resources/entities-dynamodb-table.yml)}
+  - ${file(resources/entities-uploads-s3-bucket.yml)}
+  - ${file(resources/cognito-user-pool.yml)}
+  - ${file(resources/cognito-identity-pool.yml)}

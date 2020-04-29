@@ -1,0 +1,19 @@
+Resources:
+  # Notes attachments/uploads S3 bucket
+  BranchesUploadsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:provider.environment.ENTITIES_UPLOADS_S3_BUCKET}
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedHeaders:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            MaxAge: 3000
