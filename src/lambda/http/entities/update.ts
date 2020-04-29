@@ -13,12 +13,12 @@ export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent):
     return {
       statusCode: 200,
       body: JSON.stringify(updateEntity),
-    }
+    };
   } catch (error) {
     // console.log("Error: ", error);
     return {
       statusCode: 400,
       body: JSON.stringify({ message: "There was an error updating the entity" }),
-    }
+    };
   }
 };

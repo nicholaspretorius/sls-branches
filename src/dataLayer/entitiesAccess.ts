@@ -83,7 +83,7 @@ export default class EntityAccess {
         ":name": data.name,
       },
       ExpressionAttributeNames: {
-        "#entityName": "name"
+        "#entityName": "name",
       },
       ReturnValues: "ALL_NEW",
     };

@@ -52,7 +52,7 @@ const entityClient = {
     const entitiesAccess = new EntityAccess();
 
     return entitiesAccess.updateEntityById(entityId, data);
-  }
+  },
 };
 
 export default entityClient;

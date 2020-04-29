@@ -1,7 +1,12 @@
 import * as uuid from "uuid";
 import entityClient from "../../../src/businessLogic/entities";
 import EntityAccess from "../../../src/dataLayer/entitiesAccess";
-import { entity, getEntity, getEntities, updateEntity } from "../../mocks/entities/entity";
+import {
+  entity,
+  getEntity,
+  getEntities,
+  updateEntity,
+} from "../../mocks/entities/entity";
 import { Entity } from "../../../src/models/entities/Entity";
 
 jest.mock("../../../src/dataLayer/entitiesAccess");

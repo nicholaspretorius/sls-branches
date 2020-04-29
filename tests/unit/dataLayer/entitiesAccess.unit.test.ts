@@ -3,7 +3,11 @@ import * as AWSMock from "aws-sdk-mock";
 // import * as AWS from "aws-sdk";
 // import { PutItemInput, GetItemInput } from "aws-sdk/clients/dynamodb";
 
-import { entity, getEntity, getEntities, updateEntity } from "../../mocks/entities/entity";
+import {
+  entity,
+  getEntities,
+  updateEntity,
+} from "../../mocks/entities/entity";
 import { Entity } from "../../../src/models/entities/Entity";
 import EntityAccess from "../../../src/dataLayer/entitiesAccess";
 
@@ -70,7 +74,7 @@ describe("unit: dataLayer:entitiesAccess", () => {
   it("should update entity by id", async () => {
     const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
     const mockRes = {
-      Attributes: updateEntity
+      Attributes: updateEntity,
     };
 
     // console.log("mockRes: ", mockRes);
