@@ -48,6 +48,11 @@ const entityClient = {
 
     return entitiesAccess.deleteEntityById(entityId);
   },
+  update: async (entityId: string, data) => {
+    const entitiesAccess = new EntityAccess();
+
+    return entitiesAccess.updateEntityById(entityId, data);
+  }
 };
 
 export default entityClient;
