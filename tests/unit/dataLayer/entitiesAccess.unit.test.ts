@@ -3,7 +3,7 @@ import * as AWSMock from "aws-sdk-mock";
 // import * as AWS from "aws-sdk";
 // import { PutItemInput, GetItemInput } from "aws-sdk/clients/dynamodb";
 
-import { entity, getEntities } from "../../mocks/entities/entity";
+import { entity, getEntity, getEntities, updateEntity } from "../../mocks/entities/entity";
 import { Entity } from "../../../src/models/entities/Entity";
 import EntityAccess from "../../../src/dataLayer/entitiesAccess";
 
@@ -65,5 +65,22 @@ describe("unit: dataLayer:entitiesAccess", () => {
     const entitiesAccess = new EntityAccess();
     const res = await entitiesAccess.deleteEntityById(entityId);
     expect(res).toBeDefined();
+  });
+
+  it("should update entity by id", async () => {
+    const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
+    const mockRes = {
+      Attributes: updateEntity
+    };
+
+    // console.log("mockRes: ", mockRes);
+
+    AWSMock.mock("DynamoDB.DocumentClient", "update", Promise.resolve(mockRes));
+    const entitiesAccess = new EntityAccess();
+    const res = await entitiesAccess.updateEntityById(entityId, updateEntity);
+    // console.log("Res: ", res);
+    expect(res).toBeDefined();
+    // TODO: Fix below... why is res.Attributes not on mock res?
+    expect(res).toBe(updateEntity);
   });
 });
