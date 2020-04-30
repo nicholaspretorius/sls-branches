@@ -1,4 +1,5 @@
 Resources:
+  # API Gateway Errors
   GatewayResponseDefault4XX:
     Type: "AWS::ApiGateway::GatewayResponse"
     Properties:
