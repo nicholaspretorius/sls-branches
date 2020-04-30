@@ -23,8 +23,7 @@ plugins:
   - serverless-webpack
   - serverless-offline
   - serverless-iam-roles-per-function
-  # - serverless-dynamodb-local
-
+  - serverless-dotenv-plugin
 provider:
   name: aws
   runtime: nodejs12.x
@@ -40,6 +39,8 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     ENTITIES_TABLE: ncp-branches-entities-${self:provider.stage}
     ENTITIES_UPLOADS_S3_BUCKET: ncp-branches-entities-uploads-bucket-${self:provider.stage}
+    SIGNED_URL_EXPIRATION: 300 # seconds = 5 mins
+    STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
 
 functions:
   ping:
@@ -114,6 +115,14 @@ functions:
         Action:
           - dynamodb:UpdateItem
         Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ENTITIES_TABLE}
+
+  billing:
+    handler: src/lambda/http/billing.main
+    events:
+      - http:
+          method: post
+          path: billing
+          cors: true
 
 resources:
   - ${file(resources/api-gateway-errors.yml)}
