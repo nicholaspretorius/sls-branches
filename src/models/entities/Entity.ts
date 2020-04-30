@@ -9,6 +9,8 @@ export interface Entity {
     name: string;
     country: Country;
     contacts: Contact[];
+    attachment?: any;
+    attachmentURL?: string;
 }
 
 export interface EntityCreateRequest {

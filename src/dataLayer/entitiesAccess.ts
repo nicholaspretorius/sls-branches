@@ -78,9 +78,10 @@ export default class EntityAccess {
         entityId,
         userId: "abc123",
       },
-      UpdateExpression: "SET #entityName = :name",
+      UpdateExpression: "SET #entityName = :name, attachment = :attachment",
       ExpressionAttributeValues: {
         ":name": data.name,
+        ":attachment": data.attachment,
       },
       ExpressionAttributeNames: {
         "#entityName": "name",
