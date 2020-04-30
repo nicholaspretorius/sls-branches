@@ -1,13 +1,14 @@
 import "source-map-support/register";
-
-import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+const middy = require("middy");
+import { cors } from "middy/middlewares";
 
 import entityClient from "../../../businessLogic/entities";
 import { createLogger } from "../../../libs/logger";
 
 const logger = createLogger("entities: getList");
 
-export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const entities = await entityClient.getList();
     logger.info("Res: ", { entities });
@@ -24,4 +25,11 @@ export const main: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent):
       body: JSON.stringify({ message: "There was an error retrieving entities" }),
     };
   }
-};
+});
+
+main.use(
+  cors({
+    credentials: true,
+    origin: "*"
+  })
+);
