@@ -5,8 +5,8 @@ export function createLogger(loggerName: string) {
     level: "info",
     format: winston.format.json(),
     defaultMeta: {
-      name: loggerName
+      name: loggerName,
     },
-    transports: [new winston.transports.Console()]
+    transports: [new winston.transports.Console()],
   });
 }
