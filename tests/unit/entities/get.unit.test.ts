@@ -5,6 +5,7 @@ import createEvent from "aws-event-mocks";
 import entityClient from "../../../src/businessLogic/entities";
 import { main } from "../../../src/lambda/http/entities/get";
 import { getEntity } from "../../mocks/entities/entity";
+import promisify from "../../utils/promisify";
 
 describe("unit: GET /entities/:entityId", () => {
   const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
@@ -23,7 +24,9 @@ describe("unit: GET /entities/:entityId", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    console.log("RES: ", { res });
 
     expect(entityClient.get).toHaveBeenCalledTimes(2);
     expect(res).toBeDefined();
@@ -43,7 +46,9 @@ describe("unit: GET /entities/:entityId", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+
     expect(entityClient.get).toHaveBeenCalledTimes(1);
     expect(res).toBeDefined();
     expect(res.statusCode).toBe(400);

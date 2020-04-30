@@ -5,6 +5,7 @@ import createEvent from "aws-event-mocks";
 import entityClient from "../../../src/businessLogic/entities";
 import { main } from "../../../src/lambda/http/entities/getList";
 import { getEntities } from "../../mocks/entities/entity";
+import promisify from "../../utils/promisify";
 
 describe("unit: GET /entities", () => {
   it("should return all entities with statusCode 200 and body", async () => {
@@ -19,7 +20,8 @@ describe("unit: GET /entities", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
 
     expect(entityClient.getList).toHaveBeenCalledTimes(2);
     expect(res).toBeDefined();
@@ -38,7 +40,9 @@ describe("unit: GET /entities", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
+
     expect(entityClient.getList).toHaveBeenCalledTimes(1);
     expect(res).toBeDefined();
     expect(res.statusCode).toBe(400);
