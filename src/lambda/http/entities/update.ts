@@ -1,10 +1,10 @@
 import "source-map-support/register";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-const middy = require("middy");
 import { cors } from "middy/middlewares";
-
 import { createLogger } from "../../../libs/logger";
 import entityClient from "../../../businessLogic/entities";
+
+const middy = require("middy");
 
 const logger = createLogger("entities: update");
 
@@ -34,6 +34,6 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewa
 main.use(
   cors({
     credentials: true,
-    origin: "*"
-  })
+    origin: "*",
+  }),
 );
