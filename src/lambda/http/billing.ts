@@ -22,7 +22,7 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewa
       source,
       amount,
       description,
-      currency: "usd"
+      currency: "usd",
     });
     return {
       statusCode: 200,
@@ -35,7 +35,7 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewa
     return {
       statusCode: 400,
       body: JSON.stringify({ message: "There was an error creating a charge" }),
-    }
+    };
   }
 });
 
