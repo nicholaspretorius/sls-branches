@@ -4,6 +4,7 @@ import createEvent from "aws-event-mocks";
 
 import entityClient from "../../../src/businessLogic/entities";
 import { main } from "../../../src/lambda/http/entities/delete";
+import promisify from "../../utils/promisify";
 
 describe("unit: DELETE /entities/:entityId", () => {
   const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
@@ -22,7 +23,8 @@ describe("unit: DELETE /entities/:entityId", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
 
     expect(entityClient.delete).toHaveBeenCalledTimes(2);
     expect(res).toBeDefined();
@@ -42,7 +44,9 @@ describe("unit: DELETE /entities/:entityId", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
+
     expect(entityClient.delete).toHaveBeenCalledTimes(1);
     expect(res).toBeDefined();
     expect(res.statusCode).toBe(400);

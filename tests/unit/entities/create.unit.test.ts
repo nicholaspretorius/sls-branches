@@ -6,6 +6,7 @@ import createEvent from "aws-event-mocks";
 import entityClient from "../../../src/businessLogic/entities";
 import { main } from "../../../src/lambda/http/entities/create";
 import { entity } from "../../mocks/entities/entity";
+import promisify from "../../utils/promisify";
 
 // jest.mock("../../../src/businessLogic/entities", () => {
 //   const uuid = require("uuid");
@@ -40,7 +41,9 @@ describe("unit: POST /entities", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    //const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
+
     // createEntity first called in defining createdEntity above and then called in main
     expect(entityClient.create).toHaveBeenCalledTimes(2);
     expect(res).toBeDefined();
@@ -60,7 +63,9 @@ describe("unit: POST /entities", () => {
     });
 
     const ctx = context();
-    const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
+
     expect(entityClient.create).toHaveBeenCalledTimes(1);
     expect(res).toBeDefined();
     expect(res.statusCode).toBe(400);
