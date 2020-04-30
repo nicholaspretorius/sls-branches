@@ -84,7 +84,6 @@ describe("unit: dataLayer:entitiesAccess", () => {
     const res = await entitiesAccess.updateEntityById(entityId, updateEntity);
     // console.log("Res: ", res);
     expect(res).toBeDefined();
-    // TODO: Fix below... why is res.Attributes not on mock res?
     expect(res).toBe(updateEntity);
   });
 });
