@@ -47,7 +47,7 @@ describe("unit: UPDATE /entities/:entityId", () => {
     });
 
     const ctx = context();
-    //const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
     const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
     expect(entityClient.update).toHaveBeenCalledTimes(1);
     expect(res).toBeDefined();

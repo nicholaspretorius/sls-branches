@@ -41,7 +41,7 @@ describe("unit: POST /entities", () => {
     });
 
     const ctx = context();
-    //const res = await main(event, ctx, null) as APIGatewayProxyResult;
+    // const res = await main(event, ctx, null) as APIGatewayProxyResult;
     const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
 
     // createEntity first called in defining createdEntity above and then called in main
