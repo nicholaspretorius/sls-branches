@@ -53,6 +53,9 @@ When figuring out the testing workflow between `sls offline start` and running t
 * `lsof -i :3000`
 * `kill -9 15188`
 
-TODO: 
+### Stripe
 
-1. Setup CI/CD for API
+You can test the billing API with `invoke local` or `invoke` as follows: 
+
+* `serverless invoke local --function billing --path tests/mocks/billingEvent.json`
+* `serverless invoke --function billing --path tests/mocks/billingEvent.json`
