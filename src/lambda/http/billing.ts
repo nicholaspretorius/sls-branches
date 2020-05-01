@@ -16,14 +16,16 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewa
 
   // Load our secret key from the  environment variables
   const stripe = new stripePackage(process.env.STRIPE_SECRET_KEY, { apiVersion: "2020-03-02" });
-
+  logger.info("Stripe: ", { stripe });
   try {
-    await stripe.charges.create({
+    const res = await stripe.charges.create({
       source,
       amount,
       description,
       currency: "usd",
     });
+
+    logger.info("Stripe Res: ", { stripePackage: res });
     return {
       statusCode: 200,
       body: JSON.stringify({
