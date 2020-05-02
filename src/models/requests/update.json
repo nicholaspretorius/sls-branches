@@ -13,10 +13,16 @@
       "type": "array"
     },
     "attachment": {
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "attachmentURL": {
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     }
   },
   "additionalProperties": false
