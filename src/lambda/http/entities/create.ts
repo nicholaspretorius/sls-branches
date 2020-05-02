@@ -10,11 +10,11 @@ const logger = createLogger("entities: getList");
 
 export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const newEntity = JSON.parse(event.body);
-  const userId = "abc123";
+  const userId = event.requestContext.identity.cognitoIdentityId;
   // console.log(userId, newEntity, typeof newEntity);
 
   try {
-    const entity = await entityClient.create(newEntity, userId);
+    const entity = await entityClient.create(userId, newEntity);
     logger.info("Res: ", { entity });
     // console.log("POST /entities Res: ", entity);
     // TODO: return created item in response.

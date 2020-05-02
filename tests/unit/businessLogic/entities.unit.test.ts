@@ -14,6 +14,8 @@ jest.mock("../../../src/dataLayer/entitiesAccess");
 const mockedEntityAccess = EntityAccess as jest.Mock;
 
 describe("unit: businessLogic:entities", () => {
+  const userId = "abc123";
+
   it("should create and return an entity", async () => {
     const entityId = uuid.v4();
 
@@ -26,11 +28,11 @@ describe("unit: businessLogic:entities", () => {
     } as Entity;
 
     mockedEntityAccess.mockImplementation(() => ({
-      createEntity: () => mockedEntity as Entity,
+      createEntity: (): Entity => mockedEntity as Entity,
     }));
 
     const { name, country, contacts } = entity;
-    const res = await entityClient.create({ name, country, contacts }, "abc123");
+    const res = await entityClient.create(userId, { name, country, contacts });
 
     expect(res).toStrictEqual(mockedEntity);
     expect(mockedEntityAccess).toHaveBeenCalledTimes(1);
@@ -38,10 +40,10 @@ describe("unit: businessLogic:entities", () => {
 
   it("should return existing entities", async () => {
     mockedEntityAccess.mockImplementation(() => ({
-      getEntities: () => getEntities,
+      getEntities: (): any => getEntities,
     }));
 
-    const res = await entityClient.getList();
+    const res = await entityClient.getList(userId);
     expect(res).toStrictEqual(getEntities);
     expect(mockedEntityAccess).toHaveBeenCalledTimes(2);
   });
@@ -50,10 +52,10 @@ describe("unit: businessLogic:entities", () => {
     const entityId = "66bfef74-a64a-4681-9328-410752338a0e"; // mock
 
     mockedEntityAccess.mockImplementation(() => ({
-      getEntityById: () => getEntity,
+      getEntityById: (): Entity => getEntity,
     }));
 
-    const res = await entityClient.get(entityId);
+    const res = await entityClient.get(userId, entityId);
     expect(res).toStrictEqual(getEntity);
     expect(mockedEntityAccess).toHaveBeenCalledTimes(3);
   });
@@ -62,10 +64,10 @@ describe("unit: businessLogic:entities", () => {
     const entityId = "66bfef74-a64a-4681-9328-410752338a0e"; // mock
 
     mockedEntityAccess.mockImplementation(() => ({
-      deleteEntityById: () => ({ entityId }),
+      deleteEntityById: (): any => ({ entityId }),
     }));
 
-    const res = await entityClient.delete(entityId);
+    const res = await entityClient.delete(userId, entityId);
     expect(res).toStrictEqual({ entityId });
     expect(mockedEntityAccess).toHaveBeenCalledTimes(4);
   });
@@ -74,10 +76,10 @@ describe("unit: businessLogic:entities", () => {
     const entityId = "66bfef74-a64a-4681-9328-410752338a0e"; // mock
 
     mockedEntityAccess.mockImplementation(() => ({
-      updateEntityById: () => ({ Attributes: { ...updateEntity } }),
+      updateEntityById: (): any => ({ Attributes: { ...updateEntity } }),
     }));
 
-    const res = await entityClient.update(entityId, updateEntity);
+    const res = await entityClient.update(userId, entityId, updateEntity);
     expect(res.Attributes).toStrictEqual(updateEntity);
     expect(mockedEntityAccess).toHaveBeenCalledTimes(5);
   });

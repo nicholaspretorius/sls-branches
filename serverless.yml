@@ -57,6 +57,7 @@ functions:
           method: get
           path: entities
           cors: true
+          authorizer: aws_iam
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -71,6 +72,7 @@ functions:
           method: get
           path: entities/{entityId}
           cors: true
+          authorizer: aws_iam
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -84,6 +86,7 @@ functions:
           method: post
           path: entities
           cors: true
+          authorizer: aws_iam
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -97,6 +100,7 @@ functions:
           method: delete
           path: entities/{entityId}
           cors: true
+          authorizer: aws_iam
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -110,6 +114,7 @@ functions:
           method: put
           path: entities/{entityId}
           cors: true
+          authorizer: aws_iam
     iamRoleStatements:
       - Effect: Allow
         Action:

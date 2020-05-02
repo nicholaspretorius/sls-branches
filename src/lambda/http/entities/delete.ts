@@ -10,9 +10,10 @@ const logger = createLogger("entities: delete");
 
 export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { entityId } = event.pathParameters;
+  const userId = event.requestContext.identity.cognitoIdentityId;
   // console.log(":entityId ", entityId);
   try {
-    const entity = await entityClient.delete(entityId);
+    const entity = await entityClient.delete(userId, entityId);
     logger.info("Entity: ", { entity });
     return {
       statusCode: 200,

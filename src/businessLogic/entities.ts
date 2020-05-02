@@ -1,6 +1,6 @@
 import * as uuid from "uuid";
 import EntityAccess from "../dataLayer/entitiesAccess";
-import { Entity, EntityCreateRequest } from "../models/entities/Entity";
+import { Entity } from "../models/entities/Entity";
 
 // async function createEntity(entity: EntityCreateRequest, userId: string): Promise<Entity> {
 //   const entityId = uuid.v4();
@@ -18,7 +18,7 @@ import { Entity, EntityCreateRequest } from "../models/entities/Entity";
 // const entitiesAccess = new EntityAccess();
 
 const entityClient = {
-  create: async (entity, userId: string): Promise<Entity> => {
+  create: async (userId: string, entity): Promise<Entity> => {
     const {
       name,
       country,
@@ -39,25 +39,25 @@ const entityClient = {
       attachment,
     });
   },
-  getList: async () => {
+  getList: async (userId: string): Promise<AWS.DynamoDB.ItemList> => {
     const entitiesAccess = new EntityAccess();
 
-    return entitiesAccess.getEntities();
+    return entitiesAccess.getEntities(userId);
   },
-  get: async (entityId: string) => {
+  get: async (userId: string, entityId: string): Promise<Entity> => {
     const entitiesAccess = new EntityAccess();
 
-    return entitiesAccess.getEntityById(entityId);
+    return entitiesAccess.getEntityById(userId, entityId);
   },
-  delete: async (entityId: string) => {
+  delete: async (userId: string, entityId: string): Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput> => {
     const entitiesAccess = new EntityAccess();
 
-    return entitiesAccess.deleteEntityById(entityId);
+    return entitiesAccess.deleteEntityById(userId, entityId);
   },
-  update: async (entityId: string, data) => {
+  update: async (userId: string, entityId: string, data): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput> => {
     const entitiesAccess = new EntityAccess();
 
-    return entitiesAccess.updateEntityById(entityId, data);
+    return entitiesAccess.updateEntityById(userId, entityId, data);
   },
 };
 

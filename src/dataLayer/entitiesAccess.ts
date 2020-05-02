@@ -2,6 +2,9 @@ import * as AWS from "aws-sdk";
 import { DocumentClient, ItemList } from "aws-sdk/clients/dynamodb";
 
 import { Entity } from "../models/entities/Entity";
+import { createLogger } from "../libs/logger";
+
+const logger = createLogger("entitiesAccess:");
 
 // export function createDynamoDBClient(): DocumentClient {
 //   return new AWS.DynamoDB.DocumentClient();
@@ -24,59 +27,60 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.put(params).promise();
-    // console.log("POST /entities Res: ", res);
+    logger.info("createEntity: ", { params, res });
     return res.Attributes as Entity;
   }
 
-  async getEntities(): Promise<ItemList> {
+  async getEntities(userId: string): Promise<ItemList> {
     const params = {
       TableName: this.entitiesTable,
       KeyConditionExpression: "userId = :userId",
       ExpressionAttributeValues: {
-        ":userId": "abc123", // event.requestContext.identity.cognitoIdentityId
+        ":userId": userId,
       },
     };
 
     const res = await this.docClient.query(params).promise();
-    // console.log("Res: ", res);
+    logger.info("getEntities: ", { params, res });
     return res.Items;
   }
 
-  async getEntityById(entityId: string): Promise<Entity> {
+  async getEntityById(userId: string, entityId: string): Promise<Entity> {
     const params = {
       TableName: this.entitiesTable,
       Key: {
         entityId,
-        userId: "abc123",
+        userId,
       },
     };
 
     const res = await this.docClient.get(params).promise();
-    // console.log("Res for entityId ", entityId, " : ", res);
+    logger.info("getEntityById: ", { params, res });
     return res.Item as Entity;
   }
 
-  async deleteEntityById(entityId: string) {
+  async deleteEntityById(userId: string, entityId: string): Promise<AWS.DynamoDB.DocumentClient.DeleteItemOutput> {
     const params = {
       TableName: this.entitiesTable,
       Key: {
         entityId,
-        userId: "abc123",
+        userId,
       },
+      ReturnValues: "ALL_OLD",
     };
 
     const res = await this.docClient.delete(params).promise();
-    // console.log("DEL Res: ", res);
+    logger.info("deleteEntityById: ", { params, res });
     return res;
   }
 
-  async updateEntityById(entityId: string, data) {
+  async updateEntityById(userId: string, entityId: string, data): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput> {
     // console.log("updateEntityById Params: ", entityId, data.name, data);
     const params = {
       TableName: this.entitiesTable,
       Key: {
         entityId,
-        userId: "abc123",
+        userId,
       },
       UpdateExpression: "SET #entityName = :name, attachment = :attachment",
       ExpressionAttributeValues: {
@@ -90,7 +94,7 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.update(params).promise();
-    // console.log("entityAcess.updateEntityById res: ", res);
+    logger.info("updateEntityById: ", { params, res });
     return res.Attributes;
   }
 }

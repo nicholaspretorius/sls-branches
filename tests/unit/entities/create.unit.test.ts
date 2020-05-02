@@ -23,6 +23,7 @@ import promisify from "../../utils/promisify";
 // });
 
 describe("unit: POST /entities", () => {
+  const userId = "abc123";
   it("should return the entity with statusCode 201 and body", async () => {
     const entityId = uuid.v4();
     const mockEntity = {
@@ -31,12 +32,17 @@ describe("unit: POST /entities", () => {
     };
 
     entityClient.create = jest.fn().mockResolvedValue(mockEntity);
-    const createdEntity = await entityClient.create(JSON.stringify(entity), "abc123");
+    const createdEntity = await entityClient.create(userId, JSON.stringify(entity));
 
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
         body: JSON.stringify(entity),
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 
@@ -59,6 +65,11 @@ describe("unit: POST /entities", () => {
       template: "aws:apiGateway",
       merge: {
         body: JSON.stringify({}),
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 

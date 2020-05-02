@@ -10,9 +10,10 @@ const logger = createLogger("entities: get");
 
 export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { entityId } = event.pathParameters;
+  const userId = event.requestContext.identity.cognitoIdentityId;
   // console.log(":entityId ", entityId);
   try {
-    const entity = await entityClient.get(entityId);
+    const entity = await entityClient.get(userId, entityId);
     logger.info("Entity: get", entity);
 
     return {

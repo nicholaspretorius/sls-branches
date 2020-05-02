@@ -10,23 +10,28 @@ import promisify from "../../utils/promisify";
 describe("unit: GET /entities/:entityId", () => {
   const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
   const wrongEntityId = "abcdef";
+  const userId = "abc123";
 
   it("should return an entity by id with statusCode 200 and body", async () => {
     entityClient.get = jest.fn().mockResolvedValue(getEntity);
-    const entityRes = await entityClient.get(entityId);
+    const entityRes = await entityClient.get(userId, entityId);
 
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
         body: {},
         pathParameters: entityId,
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 
     const ctx = context();
     const res = await promisify(main, event, ctx) as APIGatewayProxyResult;
     // const res = await main(event, ctx, null) as APIGatewayProxyResult;
-    console.log("RES: ", { res });
 
     expect(entityClient.get).toHaveBeenCalledTimes(2);
     expect(res).toBeDefined();
