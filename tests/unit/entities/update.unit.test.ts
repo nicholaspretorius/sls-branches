@@ -10,16 +10,22 @@ import promisify from "../../utils/promisify";
 describe("unit: UPDATE /entities/:entityId", () => {
   const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
   const wrongEntityId = "abcdef";
+  const userId = "abc123";
 
   it("should update an entity and return with statusCode 200 and body", async () => {
     entityClient.update = jest.fn().mockResolvedValue(updateEntity);
-    const entityRes = await entityClient.update(entityId, updateEntity);
+    const entityRes = await entityClient.update(userId, entityId, updateEntity);
 
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
         body: JSON.stringify(updateEntity),
         pathParameters: entityId,
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 
@@ -42,6 +48,11 @@ describe("unit: UPDATE /entities/:entityId", () => {
         body: JSON.stringify({}),
         pathParameters: {
           entityId: wrongEntityId,
+          requestContext: {
+            identity: {
+              cognitoIdentityId: userId,
+            },
+          },
         },
       },
     });

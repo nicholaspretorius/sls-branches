@@ -8,14 +8,20 @@ import { getEntities } from "../../mocks/entities/entity";
 import promisify from "../../utils/promisify";
 
 describe("unit: GET /entities", () => {
+  const userId = "abc123";
   it("should return all entities with statusCode 200 and body", async () => {
     entityClient.getList = jest.fn().mockResolvedValue(getEntities);
-    const entities = await entityClient.getList();
+    const entities = await entityClient.getList(userId);
 
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
         body: {},
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 
@@ -36,6 +42,11 @@ describe("unit: GET /entities", () => {
       template: "aws:apiGateway",
       merge: {
         body: {},
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 

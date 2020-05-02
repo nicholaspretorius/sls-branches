@@ -9,16 +9,22 @@ import promisify from "../../utils/promisify";
 describe("unit: DELETE /entities/:entityId", () => {
   const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
   const wrongEntityId = "abcdef";
+  const userId = "abc123";
 
   it("should delete an entity and return with statusCode 200 and body", async () => {
     entityClient.delete = jest.fn().mockResolvedValue({ entityId });
-    const entityRes = await entityClient.delete(entityId);
+    const entityRes = await entityClient.delete(userId, entityId);
 
     const event: APIGatewayProxyEvent = createEvent({
       template: "aws:apiGateway",
       merge: {
         body: {},
         pathParameters: entityId,
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 
@@ -40,6 +46,11 @@ describe("unit: DELETE /entities/:entityId", () => {
       merge: {
         body: {},
         pathParameters: wrongEntityId,
+        requestContext: {
+          identity: {
+            cognitoIdentityId: userId,
+          },
+        },
       },
     });
 

@@ -24,6 +24,9 @@ const mockedEntity = {
 } as Entity;
 
 describe("unit: dataLayer:entitiesAccess", () => {
+  const userId = "abc123";
+  const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
+
   it("create entity in DynamoDB", async () => {
     const expectedPr = {
       Attributes: mockedEntity,
@@ -44,7 +47,7 @@ describe("unit: dataLayer:entitiesAccess", () => {
 
     AWSMock.mock("DynamoDB.DocumentClient", "query", Promise.resolve(mockRes));
     const entitiesAccess = new EntityAccess();
-    const res = await entitiesAccess.getEntities();
+    const res = await entitiesAccess.getEntities(userId);
     expect(res).toBe(getEntities);
   });
 
@@ -55,24 +58,22 @@ describe("unit: dataLayer:entitiesAccess", () => {
 
     AWSMock.mock("DynamoDB.DocumentClient", "get", Promise.resolve(mockRes));
     const entitiesAccess = new EntityAccess();
-    const res = await entitiesAccess.getEntityById("abc123");
+    const res = await entitiesAccess.getEntityById(userId, "abc123");
     expect(res).toBe(entity);
   });
 
   it("should delete entity by id from DynamoDB", async () => {
-    const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
     const mockRes = {
       entityId,
     };
 
     AWSMock.mock("DynamoDB.DocumentClient", "delete", Promise.resolve(mockRes));
     const entitiesAccess = new EntityAccess();
-    const res = await entitiesAccess.deleteEntityById(entityId);
+    const res = await entitiesAccess.deleteEntityById(userId, entityId);
     expect(res).toBeDefined();
   });
 
   it("should update entity by id", async () => {
-    const entityId = "66bfef74-a64a-4681-9328-410752338a0e";
     const mockRes = {
       Attributes: updateEntity,
     };
@@ -81,7 +82,7 @@ describe("unit: dataLayer:entitiesAccess", () => {
 
     AWSMock.mock("DynamoDB.DocumentClient", "update", Promise.resolve(mockRes));
     const entitiesAccess = new EntityAccess();
-    const res = await entitiesAccess.updateEntityById(entityId, updateEntity);
+    const res = await entitiesAccess.updateEntityById(userId, entityId, updateEntity);
     // console.log("Res: ", res);
     expect(res).toBeDefined();
     expect(res).toBe(updateEntity);
