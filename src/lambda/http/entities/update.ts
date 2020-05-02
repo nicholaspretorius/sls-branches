@@ -10,10 +10,11 @@ const logger = createLogger("entities: update");
 
 export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { entityId } = event.pathParameters;
+  const userId = event.requestContext.identity.cognitoIdentityId;
   const data = JSON.parse(event.body);
 
   try {
-    const updateEntity = await entityClient.update(entityId, data);
+    const updateEntity = await entityClient.update(userId, entityId, data);
     logger.info("Res: update: ", { entity: updateEntity });
 
     return {

@@ -9,8 +9,9 @@ const middy = require("middy");
 const logger = createLogger("entities: getList");
 
 export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  const userId = event.requestContext.identity.cognitoIdentityId;
   try {
-    const entities = await entityClient.getList();
+    const entities = await entityClient.getList(userId);
     logger.info("Res: ", { entities });
     return {
       statusCode: 200,
