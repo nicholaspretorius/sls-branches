@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "group",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "country": {
+      "type": "array"
+    },
+    "contacts": {
+      "type": "array"
+    },
+    "attachment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "attachmentURL": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}
