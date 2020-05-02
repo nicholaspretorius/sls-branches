@@ -11,6 +11,9 @@
     },
     "contacts": {
       "type": "array"
+    },
+    "attachment": {
+      "type": "string"
     }
   },
   "required": [

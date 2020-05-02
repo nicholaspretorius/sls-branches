@@ -11,6 +11,12 @@
     },
     "contacts": {
       "type": "array"
+    },
+    "attachment": {
+      "type": "string"
+    },
+    "attachmentURL": {
+      "type": "string"
     }
   },
   "additionalProperties": false
