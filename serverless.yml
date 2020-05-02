@@ -24,6 +24,7 @@ plugins:
   - serverless-offline
   - serverless-iam-roles-per-function
   - serverless-dotenv-plugin
+  - serverless-plugin-tracing
 provider:
   name: aws
   runtime: nodejs12.x
@@ -41,6 +42,17 @@ provider:
     ENTITIES_UPLOADS_S3_BUCKET: ncp-branches-entities-uploads-bucket-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300 # seconds = 5 mins
     STRIPE_SECRET_KEY: ${env:STRIPE_SECRET_KEY}
+
+  tracing:
+    lambda: true
+    apiGateway: true
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "xray:PutTraceSegments"
+          - "xray:PutTelemetryRecords"
+        Resource:
+          - "*"
 
 functions:
   ping:
