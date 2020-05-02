@@ -1,6 +1,6 @@
 import * as winston from "winston";
 
-export function createLogger(loggerName: string) {
+export function createLogger(loggerName: string): any {
   return winston.createLogger({
     level: "info",
     format: winston.format.json(),

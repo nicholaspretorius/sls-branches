@@ -14,7 +14,7 @@ export const main = middy(async (event: APIGatewayProxyEvent): Promise<APIGatewa
   const amount = calculateCost(storage);
   const description = "Scratch charge";
 
-  // Load our secret key from the  environment variables
+  // eslint-disable-next-line new-cap
   const stripe = new stripePackage(process.env.STRIPE_SECRET_KEY, { apiVersion: "2020-03-02" });
   logger.info("Stripe: ", { stripe });
   try {
