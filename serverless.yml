@@ -99,6 +99,9 @@ functions:
           path: entities
           cors: true
           authorizer: aws_iam
+          request:
+            schema:
+              application/json: ${file(src/models/requests/create.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -127,6 +130,9 @@ functions:
           path: entities/{entityId}
           cors: true
           authorizer: aws_iam
+          request:
+            schema:
+              application/json: ${file(src/models/requests/update.json)}
     iamRoleStatements:
       - Effect: Allow
         Action:
