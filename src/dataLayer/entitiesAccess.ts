@@ -2,6 +2,9 @@ import * as AWS from "aws-sdk";
 import { DocumentClient, ItemList } from "aws-sdk/clients/dynamodb";
 
 import { Entity } from "../models/entities/Entity";
+import { createLogger } from "../libs/logger";
+
+const logger = createLogger("entitiesAccess:");
 
 // export function createDynamoDBClient(): DocumentClient {
 //   return new AWS.DynamoDB.DocumentClient();
@@ -24,7 +27,7 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.put(params).promise();
-    // console.log("POST /entities Res: ", res);
+    logger.info("createEntity: ", { params, res });
     return res.Attributes as Entity;
   }
 
@@ -38,7 +41,7 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.query(params).promise();
-    // console.log("Res: ", res);
+    logger.info("getEntities: ", { params, res });
     return res.Items;
   }
 
@@ -52,7 +55,7 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.get(params).promise();
-    // console.log("Res for entityId ", entityId, " : ", res);
+    logger.info("getEntityById: ", { params, res });
     return res.Item as Entity;
   }
 
@@ -67,7 +70,7 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.delete(params).promise();
-    console.log("DEL Res: ", res);
+    logger.info("deleteEntityById: ", { params, res });
     return res;
   }
 
@@ -91,7 +94,7 @@ export default class EntityAccess {
     };
 
     const res = await this.docClient.update(params).promise();
-    // console.log("entityAcess.updateEntityById res: ", res);
+    logger.info("updateEntityById: ", { params, res });
     return res.Attributes;
   }
 }
