@@ -7,7 +7,7 @@
       "type": "string"
     },
     "country": {
-      "type": "object"
+      "type": "array"
     },
     "contacts": {
       "type": "array"
