@@ -4,7 +4,8 @@ import { entity } from "../../mocks/entities/entity";
 
 const { URL } = process.env;
 
-xdescribe("integration: /entities", () => {
+// eslint-disable-line-next no-disabled-tests
+describe.skip("integration: /entities", () => {
   const server = request("http://localhost:3000/dev");
 
   describe("post /entities", () => {
