@@ -4,12 +4,13 @@ import { entity } from "../../mocks/entities/entity";
 
 const { URL } = process.env;
 
-describe("integration: /entities", () => {
+xdescribe("integration: /entities", () => {
   const server = request("http://localhost:3000/dev");
 
   describe("post /entities", () => {
     it("should return with a status of 201", async () => {
       const res = await server.post("/entities").send(entity);
+      console.log("Res 1: ", res);
       expect(res.status).toStrictEqual(201);
       expect(res.body.name).toStrictEqual(entity.name);
     });
