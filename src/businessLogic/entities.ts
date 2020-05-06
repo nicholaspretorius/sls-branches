@@ -25,6 +25,7 @@ const entityClient = {
       country,
       contacts,
       channels,
+      website,
       location,
       attachment,
     } = entity;
@@ -41,6 +42,7 @@ const entityClient = {
       country,
       contacts,
       channels,
+      website,
       location,
       attachment,
     });

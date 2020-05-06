@@ -21,6 +21,7 @@ export interface Entity {
     country: Country;
     contacts: Contact[];
     location: Location;
+    website: string;
     channels?: Channel[];
     attachment?: any;
     attachmentURL?: string;
