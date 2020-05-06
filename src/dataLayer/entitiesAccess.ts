@@ -82,12 +82,13 @@ export default class EntityAccess {
         entityId,
         userId,
       },
-      UpdateExpression: "SET #entityName = :name, attachment = :attachment, country = :country, contacts = :contacts, #loc = :location",
+      UpdateExpression: "SET #entityName = :name, attachment = :attachment, country = :country, contacts = :contacts, #loc = :location, channels = :channels",
       ExpressionAttributeValues: {
         ":name": data.name,
         ":contacts": data.contacts,
         ":country": data.country,
         ":location": data.location,
+        ":channels": data.channels,
         ":attachment": data.attachment,
       },
       ExpressionAttributeNames: {

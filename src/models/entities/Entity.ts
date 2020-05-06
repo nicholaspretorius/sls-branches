@@ -6,6 +6,11 @@ export interface Location {
     lng: number;
 }
 
+export interface Channel {
+    channelType: string;
+    channelHandle: string;
+}
+
 export interface Entity {
     entityId: string;
     userId: string;
@@ -16,6 +21,7 @@ export interface Entity {
     country: Country;
     contacts: Contact[];
     location: Location;
+    channels?: Channel[];
     attachment?: any;
     attachmentURL?: string;
 }

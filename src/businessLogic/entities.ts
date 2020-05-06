@@ -24,6 +24,7 @@ const entityClient = {
       parentId,
       country,
       contacts,
+      channels,
       location,
       attachment,
     } = entity;
@@ -39,6 +40,7 @@ const entityClient = {
       name,
       country,
       contacts,
+      channels,
       location,
       attachment,
     });
