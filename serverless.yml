@@ -3,6 +3,9 @@ service:
   app: branch
   org: nicholaspretorius
 
+package:
+  individually: true
+
 custom:
   webpack:
     webpackConfig: ./webpack.config.js
@@ -10,7 +13,7 @@ custom:
 
   profiles:
     dev: franchisely
-  # prod: serverless-prod
+  # prod: prod
   # dynamodb:
   #   stages:
   #     - ${self:provider.stage}
@@ -32,7 +35,6 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-west-1'}
   profile: ${self:custom.profiles.${self:provider.stage}}
-  # cfnRole: arn:aws:iam::839211811792:role/branch-api-dev-eu-west-1-lambdaRole
 
   apiGateway:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
