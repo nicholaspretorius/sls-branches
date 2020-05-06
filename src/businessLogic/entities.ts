@@ -21,8 +21,10 @@ const entityClient = {
   create: async (userId: string, entity): Promise<Entity> => {
     const {
       name,
+      parentId,
       country,
       contacts,
+      location,
       attachment,
     } = entity;
     const entityId = uuid.v4();
@@ -31,11 +33,13 @@ const entityClient = {
     return entitiesAccess.createEntity({
       entityId,
       userId,
+      parentId,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       name,
       country,
       contacts,
+      location,
       attachment,
     });
   },
