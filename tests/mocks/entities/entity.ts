@@ -10,7 +10,15 @@ export const entity = {
       contactType: "email",
       contactHandle: "test@test.com",
     },
+    {
+      contactType: "telephone",
+      contactHandle: "+27 123 456 789"
+    },
   ],
+  location: {
+    lat: 48.198921,
+    lng: 11.601885,
+  }
 };
 
 export const getEntities = [
@@ -18,8 +26,8 @@ export const getEntities = [
     contacts: [
       {
         contactType: "email",
-        email: "test@test.com",
-      },
+        contactHandle: "test@test.com",
+      }
     ],
     userId: "abc123",
     updatedAt: "2020-04-25T13:27:07.621Z",
@@ -30,6 +38,10 @@ export const getEntities = [
       countryName: "Germany",
     },
     name: "BMW",
+    location: {
+      lat: 48.198921,
+      lng: 11.601885,
+    },
   },
 ];
 
@@ -47,6 +59,10 @@ export const getEntity = {
   country: {
     countryCode: "de",
     countryName: "Germany",
+  },
+  location: {
+    lat: 48.198921,
+    lng: 11.601885,
   },
   name: "BMW",
 };
