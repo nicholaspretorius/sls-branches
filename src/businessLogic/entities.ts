@@ -27,6 +27,7 @@ const entityClient = {
       channels,
       website,
       location,
+      address,
       attachment,
     } = entity;
     const entityId = uuid.v4();
@@ -44,6 +45,7 @@ const entityClient = {
       channels,
       website,
       location,
+      address,
       attachment,
     });
   },
