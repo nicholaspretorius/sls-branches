@@ -95,7 +95,7 @@ export default class EntityAccess {
       },
       ExpressionAttributeNames: {
         "#entityName": "name",
-        "#loc": "location"
+        "#loc": "location",
       },
       ReturnValues: "ALL_NEW",
     };
