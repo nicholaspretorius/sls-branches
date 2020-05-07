@@ -1,6 +1,15 @@
 import { Country } from "../countries/Country";
 import { Contact } from "../contacts/Contact";
 
+export interface Address {
+    address1: string;
+    address2: string;
+    areaName: string;
+    cityTown: string;
+    areaCode: string;
+    unitNumber?: string;
+}
+
 export interface Location {
     lat: number;
     lng: number;
@@ -22,6 +31,7 @@ export interface Entity {
     contacts: Contact[];
     location: Location;
     website: string;
+    address?: Address;
     channels?: Channel[];
     attachment?: any;
     attachmentURL?: string;
